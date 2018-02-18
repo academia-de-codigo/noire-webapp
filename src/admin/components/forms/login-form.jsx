@@ -35,8 +35,9 @@ class LoginForm extends Component {
             username: true,
             password: true
         },
+        errors: {},
+        passwordVisible: false
         // loading: false,
-        errors: {}
     };
 
     onChange = event => {
@@ -54,6 +55,12 @@ class LoginForm extends Component {
             data,
             pristine,
             errors: LoginForm.validate(data)
+        });
+    };
+
+    onShowPassword = () => {
+        this.setState({
+            passwordVisible: !this.state.passwordVisible
         });
     };
 
@@ -97,7 +104,7 @@ class LoginForm extends Component {
                         name="password"
                         icon="lock"
                         iconPosition="left"
-                        type="password"
+                        type={this.state.passwordVisible ? 'text' : 'password'}
                         placeholder="password"
                         value={data.password}
                         onChange={this.onChange}
@@ -109,7 +116,11 @@ class LoginForm extends Component {
                 </Form.Field>
 
                 <Form.Field>
-                    <Checkbox toggle label="Show Password" />
+                    <Checkbox
+                        toggle
+                        label="Show Password"
+                        onChange={this.onShowPassword}
+                    />
                 </Form.Field>
 
                 <Button disabled={this.hasErrors()} primary fluid size="large">
