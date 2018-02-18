@@ -15,7 +15,10 @@
         "type": "git",
         "url": "git+https://github.com/academia-de-codigo/noire-webapp.git"
     },
-    "keywords": ["noire", "react"],
+    "keywords": [
+        "noire",
+        "react"
+    ],
     "author": "<Academia de Código_>",
     "license": "MIT",
     "bugs": {
@@ -27,6 +30,7 @@
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
         "react-router-dom": "^4.2.2",
+        "semantic-ui-css": "^2.2.14",
         "semantic-ui-react": "^0.78.2"
     },
     "devDependencies": {
@@ -48,6 +52,7 @@
         "eslint-plugin-prettier": "^2.6.0",
         "eslint-plugin-react": "^7.6.1",
         "extract-text-webpack-plugin": "^3.0.2",
+        "file-loader": "^1.1.6",
         "flow-bin": "^0.66.0",
         "html-webpack-plugin": "^2.30.1",
         "http-server": "^0.11.1",
@@ -55,6 +60,7 @@
         "prettier-eslint": "^8.8.1",
         "style-loader": "^0.20.2",
         "uglifyjs-webpack-plugin": "^1.2.0",
+        "url-loader": "^0.6.2",
         "webpack": "^3.11.0",
         "webpack-dev-server": "^2.11.1",
         "webpack-merge": "^4.1.1"

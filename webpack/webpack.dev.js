@@ -7,5 +7,14 @@ module.exports = merge(common, {
   devServer: {
     contentBase: 'public',
     port: 8080
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        include: /node_modules/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
   }
 });
