@@ -1,13 +1,8 @@
-// @flow
 import React, { Component } from 'react';
 import LoginForm from 'admin/components/forms/login-form';
 
-type Data = {
-    username?: string,
-    password?: string
-};
 class LoginPage extends Component {
-    static submit(data: Data) {
+    static submit(data) {
         console.log(data);
     }
 

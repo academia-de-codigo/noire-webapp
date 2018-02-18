@@ -1,30 +1,15 @@
-// @flow
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Button, Input, Checkbox } from 'semantic-ui-react';
 import InlineError from 'core/components/messages/inline-error';
 
-type Data = {
-    username?: string,
-    password?: string
-};
+class LoginForm extends Component {
+    static propTypes = {
+        submit: PropTypes.func.isRequired
+    };
 
-type Errors = {
-    username?: string,
-    password?: string
-};
-
-type State = {
-    data: Data,
-    errors: Errors
-};
-
-type Props = {
-    submit: Data => void
-};
-
-class LoginForm extends Component<Props, State> {
-    static validate(data: Data) {
-        const errors: Errors = {};
+    static validate(data) {
+        const errors = {};
 
         if (!data.password) {
             errors.password = 'Username can not be blank';
@@ -37,7 +22,7 @@ class LoginForm extends Component<Props, State> {
         return errors;
     }
 
-    state: State = {
+    state = {
         data: {
             username: '',
             password: ''
@@ -46,7 +31,7 @@ class LoginForm extends Component<Props, State> {
         errors: {}
     };
 
-    onChange = (event: Event) => {
+    onChange = event => {
         this.setState({
             data: {
                 ...this.state.data,
