@@ -1,18 +1,24 @@
-const path = require('path');
+/* eslint-disable import/no-extraneous-dependencies */
+const Path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const internals = {
-  html: new HtmlWebpackPlugin({ template: 'public/index.html' })
+const BUILD_DIR = 'build';
+
+const plugins = {
+  html: new HtmlWebpackPlugin({ template: 'public/index.html' }),
+  clean: new CleanWebpackPlugin([BUILD_DIR], {
+    root: process.cwd()
+  })
 };
 
 module.exports = {
   entry: './src/index.jsx',
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: Path.join(process.cwd(), BUILD_DIR),
     filename: 'bundle.js',
     publicPath: '/'
   },
-  devtool: 'cheap-module-source-map',
   module: {
     rules: [
       {
@@ -30,5 +36,5 @@ module.exports = {
     modules: ['node_modules', 'src'],
     extensions: ['.js', '.jsx']
   },
-  plugins: [internals.html]
+  plugins: [plugins.html, plugins.clean]
 };
