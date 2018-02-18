@@ -17,6 +17,7 @@
     "rules": {
         "prettier/prettier": "error",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/jsx-indent": ["error", 4],
         "react/prop-types": [2],
         "jsx-a11y/anchor-is-valid": [
             "error",
