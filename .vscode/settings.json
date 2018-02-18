@@ -1,8 +1,12 @@
 {
-    "javascript.validate.enable": false,
-    "javascript.format.enable": false,
     "editor.formatOnSave": true,
     "prettier.eslintIntegration": true,
+    "javascript.validate.enable": false,
+    "javascript.format.enable": false,
     "flow.useNPMPackagedFlow": false,
-    "emmet.includeLanguages": { "javascript": "javascriptreact" }
+    "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
+    "emmet.includeLanguages": { "javascript": "javascriptreact" },
+    "files.associations": {
+        "*.jsx": "javascriptreact"
+    }
 }
