@@ -1,8 +1,11 @@
 [ignore]
+./build/**
 
 [include]
+./src/**
 
 [libs]
+src
 
 [lints]
 
