@@ -11,12 +11,16 @@ class LoginForm extends Component {
     static validate(data) {
         const errors = {};
 
-        if (!data.password) {
-            errors.password = 'Username can not be blank';
+        if (!data.username) {
+            errors.username = 'Username can not be blank';
+        } else if (data.username.length < 3) {
+            errors.username = 'Username requires at least 3 characters';
         }
 
-        if (!data.username) {
-            errors.username = 'Password can not be blank';
+        if (!data.password) {
+            errors.password = 'Password can not be blank';
+        } else if (data.password.length < 6) {
+            errors.password = 'Password requires at least 6 characters';
         }
 
         return errors;
@@ -27,34 +31,53 @@ class LoginForm extends Component {
             username: '',
             password: ''
         },
+        pristine: {
+            username: true,
+            password: true
+        },
         // loading: false,
         errors: {}
     };
 
     onChange = event => {
+        const data = {
+            ...this.state.data,
+            [event.currentTarget.name]: event.currentTarget.value
+        };
+
+        const pristine = {
+            ...this.state.pristine,
+            [event.currentTarget.name]: false
+        };
+
         this.setState({
-            data: {
-                ...this.state.data,
-                [event.currentTarget.name]: event.currentTarget.value
-            }
+            data,
+            pristine,
+            errors: LoginForm.validate(data)
         });
     };
 
     onSubmit = () => {
-        const errors = LoginForm.validate(this.state.data);
-        this.setState({ errors });
-
-        // pass on form data if no errors
-        if (!Object.keys(errors).length) {
+        if (!this.hasErrors()) {
             this.props.submit(this.state.data);
         }
     };
 
+    hasErrors() {
+        return (
+            Object.keys(this.state.errors).length !== 0 ||
+            !Object.keys(this.state.pristine).every(
+                value => !this.state.pristine[value]
+            )
+        );
+    }
+
     render() {
-        const { data, errors } = this.state;
+        const { data, pristine, errors } = this.state;
+
         return (
             <Form size="large" onSubmit={this.onSubmit}>
-                <Form.Field error={!!errors.username}>
+                <Form.Field error={!!errors.username && !pristine.username}>
                     <Input
                         name="username"
                         icon="user"
@@ -63,10 +86,13 @@ class LoginForm extends Component {
                         value={data.username}
                         onChange={this.onChange}
                     />
-                    {errors.username && <InlineError text={errors.username} />}
+                    {errors.username &&
+                        !pristine.username && (
+                            <InlineError text={errors.username} />
+                        )}
                 </Form.Field>
 
-                <Form.Field error={!!errors.password}>
+                <Form.Field error={!!errors.password && !pristine.password}>
                     <Input
                         name="password"
                         icon="lock"
@@ -76,14 +102,17 @@ class LoginForm extends Component {
                         value={data.password}
                         onChange={this.onChange}
                     />
-                    {errors.password && <InlineError text={errors.password} />}
+                    {errors.password &&
+                        !pristine.password && (
+                            <InlineError text={errors.password} />
+                        )}
                 </Form.Field>
 
                 <Form.Field>
                     <Checkbox toggle label="Show Password" />
                 </Form.Field>
 
-                <Button primary fluid size="large">
+                <Button disabled={this.hasErrors()} primary fluid size="large">
                     Login
                 </Button>
             </Form>
