@@ -43,7 +43,10 @@ class LoginForm extends Component {
 
         if (validator.fails()) {
             Object.keys(validator.getErrors()).forEach(key => {
-                [errors[key]] = validator.getErrors()[key];
+                // do not generate errors for pristine fields
+                if (data.hasOwnProperty(key)) {
+                    [errors[key]] = validator.getErrors()[key];
+                }
             });
         }
 
@@ -52,19 +55,15 @@ class LoginForm extends Component {
 
     state = {
         data: {},
-        errors: {},
         passwordVisible: false
     };
 
     onChange = event => {
-        const data = {
-            ...this.state.data,
-            [event.currentTarget.name]: event.currentTarget.value
-        };
-
         this.setState({
-            data,
-            errors: LoginForm.validate(data)
+            data: {
+                ...this.state.data,
+                [event.currentTarget.name]: event.currentTarget.value
+            }
         });
     };
 
@@ -81,20 +80,15 @@ class LoginForm extends Component {
     };
 
     canSubmit() {
-        const { data, errors } = this.state;
-        return (
-            Object.keys(errors).length === 0 &&
-            Object.keys(data).every(key => data[key])
-        );
-    }
+        const { data } = this.state;
+        const errors = LoginForm.validate(data);
 
-    hasError(field) {
-        const { errors, data } = this.state;
-        return !!errors[field] && data.hasOwnProperty(field);
+        return Object.keys(errors).length === 0;
     }
 
     render() {
-        const { data, errors, passwordVisible } = this.state;
+        const { data, passwordVisible } = this.state;
+        const errors = LoginForm.validate(data);
 
         return (
             <Form size="large" onSubmit={this.onSubmit}>
@@ -104,7 +98,7 @@ class LoginForm extends Component {
                     placeholder="username"
                     value={data.username}
                     onChange={this.onChange}
-                    error={this.hasError('username') ? errors.username : null}
+                    error={errors.username}
                 />
 
                 <InputField
@@ -114,7 +108,7 @@ class LoginForm extends Component {
                     password={!passwordVisible}
                     value={data.password}
                     onChange={this.onChange}
-                    error={this.hasError('password') ? errors.password : null}
+                    error={errors.password}
                 />
 
                 <CheckBoxField
