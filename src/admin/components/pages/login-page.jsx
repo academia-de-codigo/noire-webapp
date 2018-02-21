@@ -7,12 +7,7 @@ class LoginPage extends Component {
     }
 
     render() {
-        return (
-            <div className="ui container">
-                <h1>Login Page</h1>
-                <LoginForm submit={LoginPage.submit} />
-            </div>
-        );
+        return <LoginForm onSubmit={LoginPage.submit}>Login Page</LoginForm>;
     }
 }
 

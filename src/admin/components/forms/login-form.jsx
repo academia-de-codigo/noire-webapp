@@ -1,43 +1,59 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Button, Input, Checkbox } from 'semantic-ui-react';
-import InlineError from 'core/components/messages/inline-error';
+import Validator from 'Validator';
+import { Segment, Header, Form, Button } from 'semantic-ui-react';
+import InputField from 'core/components/forms/input-field';
+import CheckBoxField from 'core/components/forms/checkbox-field';
+
+function LoginFormContainer(props) {
+    return (
+        <div className="ui container">
+            <Segment raised>
+                <Header textAlign="center" size="large" as="h1">
+                    {props.children}
+                </Header>
+                <LoginForm onSubmit={props.onSubmit} />
+            </Segment>
+        </div>
+    );
+}
+
+LoginFormContainer.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    children: PropTypes.node
+};
+
+LoginFormContainer.defaultProps = {
+    children: PropTypes.node
+};
 
 class LoginForm extends Component {
     static propTypes = {
-        submit: PropTypes.func.isRequired
+        onSubmit: PropTypes.func.isRequired
     };
 
     static validate(data) {
+        const rules = {
+            username: 'required|min:3',
+            password: 'required|min:6'
+        };
+
+        const validator = Validator.make(data, rules);
         const errors = {};
 
-        if (!data.username) {
-            errors.username = 'Username can not be blank';
-        } else if (data.username.length < 3) {
-            errors.username = 'Username requires at least 3 characters';
-        }
-
-        if (!data.password) {
-            errors.password = 'Password can not be blank';
-        } else if (data.password.length < 6) {
-            errors.password = 'Password requires at least 6 characters';
+        if (validator.fails()) {
+            Object.keys(validator.getErrors()).forEach(key => {
+                [errors[key]] = validator.getErrors()[key];
+            });
         }
 
         return errors;
     }
 
     state = {
-        data: {
-            username: '',
-            password: ''
-        },
-        pristine: {
-            username: true,
-            password: true
-        },
+        data: {},
         errors: {},
         passwordVisible: false
-        // loading: false,
     };
 
     onChange = event => {
@@ -46,14 +62,8 @@ class LoginForm extends Component {
             [event.currentTarget.name]: event.currentTarget.value
         };
 
-        const pristine = {
-            ...this.state.pristine,
-            [event.currentTarget.name]: false
-        };
-
         this.setState({
             data,
-            pristine,
             errors: LoginForm.validate(data)
         });
     };
@@ -65,65 +75,54 @@ class LoginForm extends Component {
     };
 
     onSubmit = () => {
-        if (!this.hasErrors()) {
-            this.props.submit(this.state.data);
+        if (this.canSubmit()) {
+            this.props.onSubmit(this.state.data);
         }
     };
 
-    hasErrors() {
+    canSubmit() {
+        const { data, errors } = this.state;
         return (
-            Object.keys(this.state.errors).length !== 0 ||
-            !Object.keys(this.state.pristine).every(
-                value => !this.state.pristine[value]
-            )
+            Object.keys(errors).length === 0 &&
+            Object.keys(data).every(key => data[key])
         );
     }
 
+    hasError(field) {
+        const { errors, data } = this.state;
+        return !!errors[field] && data.hasOwnProperty(field);
+    }
+
     render() {
-        const { data, pristine, errors } = this.state;
+        const { data, errors, passwordVisible } = this.state;
 
         return (
             <Form size="large" onSubmit={this.onSubmit}>
-                <Form.Field error={!!errors.username && !pristine.username}>
-                    <Input
-                        name="username"
-                        icon="user"
-                        iconPosition="left"
-                        placeholder="username"
-                        value={data.username}
-                        onChange={this.onChange}
-                    />
-                    {errors.username &&
-                        !pristine.username && (
-                            <InlineError text={errors.username} />
-                        )}
-                </Form.Field>
+                <InputField
+                    name="username"
+                    icon="user"
+                    placeholder="username"
+                    value={data.username}
+                    onChange={this.onChange}
+                    error={this.hasError('username') ? errors.username : null}
+                />
 
-                <Form.Field error={!!errors.password && !pristine.password}>
-                    <Input
-                        name="password"
-                        icon="lock"
-                        iconPosition="left"
-                        type={this.state.passwordVisible ? 'text' : 'password'}
-                        placeholder="password"
-                        value={data.password}
-                        onChange={this.onChange}
-                    />
-                    {errors.password &&
-                        !pristine.password && (
-                            <InlineError text={errors.password} />
-                        )}
-                </Form.Field>
+                <InputField
+                    name="password"
+                    icon="lock"
+                    placeholder="password"
+                    password={!passwordVisible}
+                    value={data.password}
+                    onChange={this.onChange}
+                    error={this.hasError('password') ? errors.password : null}
+                />
 
-                <Form.Field>
-                    <Checkbox
-                        toggle
-                        label="Show Password"
-                        onChange={this.onShowPassword}
-                    />
-                </Form.Field>
+                <CheckBoxField
+                    text="Show Password"
+                    onChange={this.onShowPassword}
+                />
 
-                <Button disabled={this.hasErrors()} primary fluid size="large">
+                <Button disabled={!this.canSubmit()} primary fluid size="large">
                     Login
                 </Button>
             </Form>
@@ -131,4 +130,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default LoginFormContainer;
