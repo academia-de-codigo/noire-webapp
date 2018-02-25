@@ -18,7 +18,7 @@ module.exports = merge(common, {
         rules: [
             {
                 test: /\.css$/,
-                include: /node_modules/,
+                include: [/node_modules/, /src/],
                 use: ['style-loader', 'css-loader']
             }
         ]
