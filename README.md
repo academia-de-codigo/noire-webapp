@@ -16,7 +16,7 @@ To spin off a local web server with live reload:
 
 ## Test
 
-https://facebook.github.io/jest/
+Uses [Jest](https://facebook.github.io/jest/) for running tests and assertions, and [Enzyme](http://airbnb.io/enzyme/) for asserting, manipulating, and traversing React Components output
 
 ## Deploy
 
@@ -34,7 +34,9 @@ Files should stick to lower-case with dashes as separators (Pascal Case? ) and t
 
 Each React component should be placed in its own file and be the default export. The component name should match the file name, but converted to Camel Case? (`user-list.jsx` should export a `UserList` component).
 
-Imports are resolved both from `node_modules` and the `src` directory, making it possible to `import App from ./app` to import `src/app.jsx`
+Imports are resolved both from `node_modules` and the `src` directory, making it possible to replace
+`import App from './src/app.jsx'` with
+`import App from app`
 
 Inspiration taken from:
 

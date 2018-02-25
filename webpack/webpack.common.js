@@ -37,7 +37,6 @@ module.exports = {
         ]
     },
     resolve: {
-        modules: ['node_modules', SRC_DIR],
         extensions: ['.js', '.jsx']
     },
     plugins: [plugins.clean]

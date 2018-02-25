@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import HomePage from './home/components/pages/home-page';
-import LoginPage from './admin/components/pages/login-page';
+import HomePage from 'home/components/pages/home-page';
+import LoginPage from 'admin/components/pages/login-page';
 
 const App = () => (
     <div>

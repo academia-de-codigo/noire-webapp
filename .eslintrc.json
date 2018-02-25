@@ -1,6 +1,6 @@
 {
-    "extends": ["airbnb", "prettier"],
-    "plugins": ["react", "jsx-a11y", "import"],
+    "extends": ["airbnb", "prettier", "plugin:jest/recommended"],
+    "plugins": ["react", "jsx-a11y", "import", "jest"],
     "parser": "babel-eslint",
     "parserOptions": {
         "ecmaVersion": 2017,
@@ -27,7 +27,12 @@
                 "specialLink": ["to", "hrefLeft", "hrefRight"],
                 "aspects": ["noHref", "invalidHref", "preferButton"]
             }
-        ]
+        ],
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error"
     },
     "settings": {
         "import/resolver": {
