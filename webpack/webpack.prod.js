@@ -47,7 +47,7 @@ module.exports = merge(common, {
         rules: [
             {
                 test: /\.css$/,
-                include: /node_modules/,
+                include: [/node_modules/, /src/],
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: { loader: 'css-loader', options: { minimize: true } }
@@ -55,5 +55,10 @@ module.exports = merge(common, {
             }
         ]
     },
-    plugins: [plugins.uglifyJs, plugins.define, plugins.extractText, plugins.html]
+    plugins: [
+        plugins.uglifyJs,
+        plugins.define,
+        plugins.extractText,
+        plugins.html
+    ]
 });

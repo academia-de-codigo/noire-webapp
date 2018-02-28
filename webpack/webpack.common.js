@@ -12,7 +12,8 @@ const plugins = {
 };
 
 module.exports = {
-    entry: Path.join(process.cwd(), SRC_DIR, 'index.jsx'),
+    // babel-polyfill required for ES2017 async-await to generator conversion
+    entry: ['babel-polyfill', Path.join(process.cwd(), SRC_DIR, 'index.jsx')],
     output: {
         path: Path.join(process.cwd(), BUILD_DIR),
         filename: 'bundle.js',
