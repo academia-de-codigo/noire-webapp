@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input } from 'semantic-ui-react';
-import InlineError from 'core/components/messages/inline-error';
+import InlineError from 'core/messages/inline-error';
 
 function InputField(props) {
     return (

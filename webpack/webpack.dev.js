@@ -10,7 +10,7 @@ const plugins = {
 module.exports = merge(common, {
     devtool: 'cheap-module-source-map',
     devServer: {
-        port: 8080,
+        port: 8000,
         contentBase: 'public', // serve static assets from here
         historyApiFallback: true // avoid 404 on app reload
     },

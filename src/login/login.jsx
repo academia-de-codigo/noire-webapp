@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Validator from 'Validator';
-import { Segment, Header, Form, Button } from 'semantic-ui-react';
-import InputField from 'core/components/forms/input-field';
-import CheckBoxField from 'core/components/forms/checkbox-field';
+import { Message, Segment, Header, Form, Button } from 'semantic-ui-react';
+import InputField from 'core/forms/input-field';
+import CheckBoxField from 'core/forms/checkbox-field';
 
-function LoginFormContainer(props) {
+function Login(props) {
     return (
         <div className="ui container">
             <Segment raised>
@@ -18,16 +18,16 @@ function LoginFormContainer(props) {
     );
 }
 
-LoginFormContainer.propTypes = {
+Login.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     children: PropTypes.node
 };
 
-LoginFormContainer.defaultProps = {
-    children: PropTypes.node
+Login.defaultProps = {
+    children: 'Login Form'
 };
 
-class LoginForm extends Component {
+export class LoginForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired
     };
@@ -35,7 +35,7 @@ class LoginForm extends Component {
     static validate(data) {
         const rules = {
             username: 'required|min:3',
-            password: 'required|min:6'
+            password: 'required|min:3'
         };
 
         const validator = Validator.make(data, rules);
@@ -55,6 +55,7 @@ class LoginForm extends Component {
 
     state = {
         data: {},
+        error: null,
         passwordVisible: false
     };
 
@@ -73,9 +74,15 @@ class LoginForm extends Component {
         });
     };
 
-    onSubmit = () => {
+    onSubmit = async () => {
         if (this.canSubmit()) {
-            this.props.onSubmit(this.state.data);
+            try {
+                await this.props.onSubmit(this.state.data);
+            } catch (error) {
+                this.setState({
+                    error: error.message
+                });
+            }
         }
     };
 
@@ -88,6 +95,7 @@ class LoginForm extends Component {
 
     render() {
         const { data, passwordVisible } = this.state;
+        const errorMessage = this.state.error;
         const errors = LoginForm.validate(data);
 
         return (
@@ -119,9 +127,10 @@ class LoginForm extends Component {
                 <Button disabled={!this.canSubmit()} primary fluid size="large">
                     Login
                 </Button>
+                {errorMessage && <Message negative>{errorMessage}</Message>}
             </Form>
         );
     }
 }
 
-export default LoginFormContainer;
+export default Login;
