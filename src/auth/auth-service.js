@@ -1,11 +1,7 @@
-import axios from 'axios';
-
-// TODO: move into config file
-const API = 'https://localhost:8081/api';
+import * as api from 'api';
 
 export async function login(username, password) {
-    // TODO: use timeout config setting
-    const response = await axios.post(`${API}/login`, {
+    const response = await api.post('/login', {
         username,
         password
     });
@@ -20,5 +16,5 @@ export async function login(username, password) {
 }
 
 export async function logout() {
-    return axios.post(`${API}/logout`);
+    return api.post('/logout');
 }

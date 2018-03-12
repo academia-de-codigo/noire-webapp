@@ -55,7 +55,7 @@ export class LoginForm extends Component {
 
     state = {
         data: {},
-        error: null,
+        globalError: null,
         passwordVisible: false
     };
 
@@ -80,7 +80,7 @@ export class LoginForm extends Component {
                 await this.props.onSubmit(this.state.data);
             } catch (error) {
                 this.setState({
-                    error: error.message
+                    globalError: error.message
                 });
             }
         }
@@ -94,8 +94,7 @@ export class LoginForm extends Component {
     }
 
     render() {
-        const { data, passwordVisible } = this.state;
-        const errorMessage = this.state.error;
+        const { data, passwordVisible, globalError } = this.state;
         const errors = LoginForm.validate(data);
 
         return (
@@ -127,7 +126,12 @@ export class LoginForm extends Component {
                 <Button disabled={!this.canSubmit()} primary fluid size="large">
                     Login
                 </Button>
-                {errorMessage && <Message negative>{errorMessage}</Message>}
+                {globalError && (
+                    <Message negative>
+                        <Message.Header>Login Failure</Message.Header>
+                        <p>{globalError}</p>
+                    </Message>
+                )}
             </Form>
         );
     }
