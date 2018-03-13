@@ -1,21 +1,21 @@
 import Axios from 'axios';
-import { api } from 'config';
+import config from 'config';
 
 const axios = Axios.create({
-    baseURL: api.baseURL,
-    timeout: api.timeout
+    baseURL: config.api.baseURL,
+    timeout: config.api.timeout
 });
 
 async function wrapError(asyncFunc, ...args) {
     try {
         return await asyncFunc(...args);
     } catch (error) {
-        if (error.response) {
+        if (error.response && error.response.data.message) {
             // server responded with status code different from 2xx
             throw new Error(error.response.data.message);
         }
 
-        throw error;
+        throw new Error('unable to perform network request');
     }
 }
 

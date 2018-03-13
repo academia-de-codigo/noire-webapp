@@ -55,6 +55,7 @@ export class LoginForm extends Component {
 
     state = {
         data: {},
+        loading: false,
         globalError: null,
         passwordVisible: false
     };
@@ -77,10 +78,12 @@ export class LoginForm extends Component {
     onSubmit = async () => {
         if (this.canSubmit()) {
             try {
+                this.setState({ loading: true });
                 await this.props.onSubmit(this.state.data);
             } catch (error) {
                 this.setState({
-                    globalError: error.message
+                    globalError: error.message,
+                    loading: false
                 });
             }
         }
@@ -90,15 +93,17 @@ export class LoginForm extends Component {
         const { data } = this.state;
         const errors = LoginForm.validate(data);
 
-        return Object.keys(errors).length === 0;
+        return (
+            Object.keys(errors).length === 0 && data.username && data.password
+        );
     }
 
     render() {
-        const { data, passwordVisible, globalError } = this.state;
+        const { data, passwordVisible, loading, globalError } = this.state;
         const errors = LoginForm.validate(data);
 
         return (
-            <Form size="large" onSubmit={this.onSubmit}>
+            <Form size="large" onSubmit={this.onSubmit} loading={loading}>
                 <InputField
                     name="username"
                     icon="user"
