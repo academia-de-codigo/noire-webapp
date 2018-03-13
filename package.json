@@ -4,7 +4,8 @@
     "description": "React Frontend for the Noire server",
     "main": "src/index.js",
     "scripts": {
-        "start": "webpack-dev-server --config webpack/webpack.dev.js",
+        "start":
+            "webpack-dev-server --progress --config webpack/webpack.dev.js",
         "test": "jest",
         "lint": "eslint src",
         "build": "webpack --progress --config webpack/webpack.prod.js",
@@ -14,10 +15,7 @@
         "type": "git",
         "url": "git+https://github.com/academia-de-codigo/noire-webapp.git"
     },
-    "keywords": [
-        "noire",
-        "react"
-    ],
+    "keywords": ["noire", "react"],
     "author": "<Academia de Código_>",
     "license": "MIT",
     "bugs": {

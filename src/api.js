@@ -1,12 +1,9 @@
 import Axios from 'axios';
-
-// TODO: move timeout and API into config file
-const TIMEOUT = '2000';
-const API = 'https://localhost:8081/api';
+import { api } from 'config';
 
 const axios = Axios.create({
-    baseURL: API,
-    timeout: TIMEOUT
+    baseURL: api.baseURL,
+    timeout: api.timeout
 });
 
 async function wrapError(asyncFunc, ...args) {
@@ -14,7 +11,7 @@ async function wrapError(asyncFunc, ...args) {
         return await asyncFunc(...args);
     } catch (error) {
         if (error.response) {
-            // server responded with status code different 2xx
+            // server responded with status code different from 2xx
             throw new Error(error.response.data.message);
         }
 
