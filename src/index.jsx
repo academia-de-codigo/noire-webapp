@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import 'semantic-ui-css/semantic.min.css';
 import App from 'app';
 import rootReducer from 'root-reducer';
+import 'app.css';
 
 let reduxMiddleware = applyMiddleware(thunk);
 

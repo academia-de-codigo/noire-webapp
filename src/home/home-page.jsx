@@ -1,23 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Container } from 'semantic-ui-react';
+import Nav from './nav';
+import './home-page.css';
 
-const HomePage = ({ auth }) => (
-    <div className="ui container">
-        <h1>Home Page</h1>
-        {auth ? <span>Logout</span> : <Link to="/login">Login</Link>}
-    </div>
-);
-
-HomePage.propTypes = {
-    auth: PropTypes.bool.isRequired
-};
-
-function mapStateToProps({ auth }) {
-    return {
-        auth: !!auth.token
-    };
+function HomePage() {
+    return (
+        <div className="home">
+            <Nav />
+            <Container>
+                <h1>Home Page</h1>
+            </Container>
+        </div>
+    );
 }
 
-export default connect(mapStateToProps)(HomePage);
+export default HomePage;

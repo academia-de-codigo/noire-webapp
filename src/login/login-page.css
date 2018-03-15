@@ -2,6 +2,6 @@ body {
     background-color: #ecf0f1;
 }
 
-.login {
-    padding-top: 100px;
+.container {
+    height: 100%;
 }

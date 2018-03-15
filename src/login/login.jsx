@@ -7,14 +7,12 @@ import CheckBoxField from 'core/forms/checkbox-field';
 
 function Login(props) {
     return (
-        <div className="ui container">
-            <Segment raised>
-                <Header textAlign="center" size="large" as="h1">
-                    {props.children}
-                </Header>
-                <LoginForm onSubmit={props.onSubmit} />
-            </Segment>
-        </div>
+        <Segment raised>
+            <Header textAlign="center" size="large" as="h1">
+                {props.children}
+            </Header>
+            <LoginForm onSubmit={props.onSubmit} />
+        </Segment>
     );
 }
 

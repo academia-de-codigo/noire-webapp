@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Grid } from 'semantic-ui-react';
 import { login } from 'auth/auth-sagas';
 import Login from './login';
 import './login-page.css';
@@ -20,13 +21,11 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <div className="login">
-                <div className="ui centered grid container">
-                    <div className="six wide computer eight wide tablet sixteen wide phone column">
-                        <Login onSubmit={this.submit}>Login Page</Login>
-                    </div>
-                </div>
-            </div>
+            <Grid container centered verticalAlign="middle">
+                <Grid.Column computer={6} tablet={8} mobile={12}>
+                    <Login onSubmit={this.submit}>Login Page</Login>
+                </Grid.Column>
+            </Grid>
         );
     }
 }
