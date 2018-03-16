@@ -7,10 +7,10 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import 'semantic-ui-css/semantic.min.css';
-import App from 'app';
-import rootReducer from 'root-reducer';
+import App from 'app/app';
+import rootReducer from 'reducer';
 import * as action from 'auth/auth-actions';
-import 'app.css';
+import 'app/app.css';
 
 let reduxMiddleware = applyMiddleware(thunk);
 

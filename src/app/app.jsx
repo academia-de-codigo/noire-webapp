@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import HomePage from 'home/home-page';
-import LoginPage from 'login/login-page';
-import AdminPage from 'admin/admin-page';
-import PrivateRoute from 'nav/private-route';
+import HomePage from 'pages/home/home-page';
+import LoginPage from 'pages/login/login-page';
+import AdminPage from 'pages/admin/admin-page';
+import PrivateRoute from 'core/nav/private-route';
 
 function App() {
     return (

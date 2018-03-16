@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Menu, Button } from 'semantic-ui-react';
-import * as actions from 'auth/auth-sagas';
+import * as actions from 'auth/auth-thunks';
 
 function RouterNavLink(props) {
     return <NavLink exact {...props} activeClassName="active" />;

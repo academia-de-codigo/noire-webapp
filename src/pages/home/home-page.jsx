@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
-import Nav from 'nav/nav';
+import Nav from 'core/nav/nav';
 import './home-page.css';
 
 function HomePage() {

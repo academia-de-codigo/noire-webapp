@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
-import { login } from 'auth/auth-sagas';
+import { login } from 'auth/auth-thunks';
 import Login from './login';
 import './login-page.css';
 
