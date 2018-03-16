@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import 'semantic-ui-css/semantic.min.css';
 import App from 'app';
 import rootReducer from 'root-reducer';
+import * as action from 'auth/auth-actions';
 import 'app.css';
 
 let reduxMiddleware = applyMiddleware(thunk);
@@ -21,6 +22,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const store = createStore(rootReducer, reduxMiddleware);
+
+if (localStorage.jwt) {
+    store.dispatch(action.login(localStorage.jwt));
+}
 
 ReactDOM.render(
     <Router>

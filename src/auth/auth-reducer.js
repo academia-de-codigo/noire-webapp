@@ -6,6 +6,8 @@ export default function auth(state = {}, { type, payload }) {
             return {
                 token: payload.token
             };
+        case types.LOGOUT:
+            return {};
         default:
             return state;
     }
