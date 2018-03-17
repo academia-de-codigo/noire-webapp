@@ -2,6 +2,8 @@
 
 React Frontend for the Noire server
 
+**WARNING: Noire is currently under active development and not ready for production use**
+
 ## Develop
 
 To spin off a local web server with live reload:
@@ -10,7 +12,7 @@ To spin off a local web server with live reload:
 
 ## Build
 
-[WebPack 3](https://webpack.js.org) is used to bundle the application by running:
+[WebPack 4](https://webpack.js.org) is used to bundle the application by running:
 
 `npm run build`
 
