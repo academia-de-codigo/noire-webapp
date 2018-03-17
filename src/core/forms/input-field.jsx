@@ -22,8 +22,8 @@ function InputField(props) {
 
 InputField.propTypes = {
     name: PropTypes.string.isRequired,
-    value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
+    value: PropTypes.string,
     placeholder: PropTypes.string,
     icon: PropTypes.string,
     error: PropTypes.string,

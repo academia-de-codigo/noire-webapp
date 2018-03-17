@@ -9,11 +9,14 @@ pids
 *.seed
 *.pid.lock
 
-# Build 
+# Build
 build
 
 # Dependency directories
 node_modules/
+
+# Coverage data
+coverage
 
 # Optional npm cache directory
 .npm

@@ -1,18 +1,25 @@
 import React from 'react';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import InlineError from 'core/components/messages/inline-error';
+import { shallow } from 'enzyme';
+import InlineError from 'core/messages/inline-error';
 
 describe('InlineError', () => {
-    beforeAll(() => {
-        configure({ adapter: new Adapter() });
+    const minProps = {
+        text: ''
+    };
+
+    it('renders without exploding', () => {
+        expect(shallow(<InlineError {...minProps} />)).toHaveLength(1);
     });
 
-    it('renders a span with some text', () => {
-        const text = 'some text to be rendered';
-        const mountedInlineError = mount(<InlineError text={text} />);
-        expect(mountedInlineError.children()).toHaveLength(1);
-        expect(mountedInlineError.find('span')).toHaveLength(1);
-        expect(mountedInlineError.find('span').text()).toEqual(text);
+    it('renders error message inline', () => {
+        let text = 'error message';
+        const wrapper = shallow(<InlineError {...minProps} text={text} />);
+
+        expect(wrapper.find('span')).toHaveLength(1);
+        expect(wrapper.find('span').text()).toBe(text);
+
+        text = 'new error message';
+        wrapper.setProps({ text });
+        expect(wrapper.find('span').text()).toBe(text);
     });
 });
