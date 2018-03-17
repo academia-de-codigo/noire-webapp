@@ -42,14 +42,14 @@ Nav.defaultProps = {
 
 function mapStateToProps({ auth }) {
     return {
-        auth: !!auth.token
+        isAuthenticated: !!auth.token
     };
 }
 
-function NavContainer({ auth, links, logout }) {
+function NavContainer({ isAuthenticated, links, logout }) {
     return (
         <Nav links={links}>
-            {auth ? (
+            {isAuthenticated ? (
                 <Button onClick={logout}>Logout</Button>
             ) : (
                 <Menu.Item as={RouterNavLink} to="/login">
@@ -61,7 +61,7 @@ function NavContainer({ auth, links, logout }) {
 }
 
 NavContainer.propTypes = {
-    auth: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     links: linksPropTypes.isRequired,
     logout: PropTypes.func.isRequired
 };

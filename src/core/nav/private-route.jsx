@@ -3,24 +3,22 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-function PrivateRoute({ auth, component, ...rest }) {
-    if (!auth.token) {
-        return <Redirect to="/login" />;
-    }
-
-    return <Route component={component} {...rest} />;
+function PrivateRoute({ isAuthenticated, component, ...rest }) {
+    return isAuthenticated ? (
+        <Route component={component} {...rest} />
+    ) : (
+        <Redirect to="/login" />
+    );
 }
 
 PrivateRoute.propTypes = {
-    auth: PropTypes.shape({
-        token: PropTypes.string
-    }).isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     component: PropTypes.func.isRequired
 };
 
 function mapStateToProps({ auth }) {
     return {
-        auth
+        isAuthenticated: !!auth.token
     };
 }
 
