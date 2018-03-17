@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-function PrivateRoute({ isAuthenticated, component, ...rest }) {
+function PrivateRoute({ isAuthenticated, component: Component, ...rest }) {
     return isAuthenticated ? (
-        <Route component={component} {...rest} />
+        <Route render={props => <Component {...props} />} {...rest} />
     ) : (
         <Redirect to="/login" />
     );

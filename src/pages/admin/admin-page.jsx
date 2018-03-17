@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
 import Nav from 'core/nav/nav';
 
-function AdminPage() {
+function AdminPage({ history }) {
     const links = [
         { id: 0, path: '/', text: 'Home' },
         { id: 1, path: '/admin', text: 'Admin' },
@@ -11,12 +12,18 @@ function AdminPage() {
     ];
     return (
         <div className="page">
-            <Nav links={links} />
+            <Nav links={links} onLogout={() => history.push('/')} />
             <Container>
                 <h1>Admin Page</h1>
             </Container>
         </div>
     );
 }
+
+AdminPage.propTypes = {
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired
+    }).isRequired
+};
 
 export default AdminPage;

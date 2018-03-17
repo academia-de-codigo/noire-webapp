@@ -46,6 +46,15 @@ function mapStateToProps({ auth }) {
     };
 }
 
+function mapDispatchToProps(dispatch, { onLogout }) {
+    return {
+        logout() {
+            dispatch(actions.logout());
+            onLogout();
+        }
+    };
+}
+
 function NavContainer({ isAuthenticated, links, logout }) {
     return (
         <Nav links={links}>
@@ -66,6 +75,4 @@ NavContainer.propTypes = {
     logout: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, { logout: actions.logout })(
-    NavContainer
-);
+export default connect(mapStateToProps, mapDispatchToProps)(NavContainer);
