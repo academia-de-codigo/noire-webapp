@@ -16,5 +16,17 @@ export async function login(username, password) {
 }
 
 export async function logout() {
-    return api.post('logout');
+    return api.get('logout');
+}
+
+export async function renew() {
+    const response = await api.get('renew');
+
+    const token = response.headers['server-authorization'];
+
+    if (!token) {
+        throw new Error('authentication failure');
+    }
+
+    return token;
 }

@@ -13,16 +13,25 @@
     },
     "jest": {
         "verbose": true,
-        "roots": ["src", "test"],
+        "roots": [
+            "src",
+            "test"
+        ],
         "setupTestFrameworkScriptFile": "./test/setup.js",
         "collectCoverage": false,
-        "collectCoverageFrom": ["**/*.{js,jsx}", "!**/node_modules/**"]
+        "collectCoverageFrom": [
+            "**/*.{js,jsx}",
+            "!**/node_modules/**"
+        ]
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/academia-de-codigo/noire-webapp.git"
     },
-    "keywords": ["noire", "react"],
+    "keywords": [
+        "noire",
+        "react"
+    ],
     "author": "<Academia de Código_>",
     "license": "MIT",
     "bugs": {
@@ -34,7 +43,7 @@
         "axios": "^0.18.0",
         "babel-polyfill": "^6.26.0",
         "connect-history-api-fallback": "^1.5.0",
-        "extract-text-webpack-plugin": "^4.0.0-beta.0",
+        "jwt-decode": "^2.2.0",
         "prop-types": "^15.6.1",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
@@ -83,6 +92,7 @@
         "url-loader": "^1.0.1",
         "webpack": "^4.1.1",
         "webpack-merge": "^4.1.2",
-        "webpack-serve": "^0.2.0"
+        "webpack-serve": "^0.2.0",
+        "extract-text-webpack-plugin": "^4.0.0-beta.0"
     }
 }

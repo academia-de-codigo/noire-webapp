@@ -26,3 +26,11 @@ export async function post(path, data) {
 export async function get(path, data) {
     return wrapError(axios.get, path, data);
 }
+
+export function setAuthorizationHeader(token) {
+    if (token) {
+        Axios.defaults.headers.common.authorization = `Bearer ${token}`;
+    } else {
+        delete Axios.defaults.headers.common.authorization;
+    }
+}
