@@ -2,7 +2,7 @@
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require('./webpack.common.js');
 
 const plugins = {
@@ -34,7 +34,10 @@ const plugins = {
         exclude: [/\.min\.js$/gi]
     }),
 
-    extractText: new ExtractTextPlugin('styles.css')
+    miniCss: new MiniCssExtractPlugin({
+        filename: '[name].css',
+        chunkFilename: '[id].css'
+    })
 };
 
 module.exports = merge(common, {
@@ -45,12 +48,9 @@ module.exports = merge(common, {
             {
                 test: /\.css$/,
                 include: [/node_modules/, /src/],
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: { loader: 'css-loader', options: { minimize: true } }
-                })
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             }
         ]
     },
-    plugins: [plugins.uglifyJs, plugins.extractText, plugins.html]
+    plugins: [plugins.uglifyJs, plugins.miniCss, plugins.html]
 });

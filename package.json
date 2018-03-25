@@ -83,6 +83,7 @@
         "http-server": "^0.11.1",
         "jest": "^22.4.3",
         "koa-connect": "^2.0.1",
+        "mini-css-extract-plugin": "^0.2.0",
         "prettier": "1.11.1",
         "prettier-eslint": "^8.8.1",
         "react-test-renderer": "^16.2.0",
@@ -92,7 +93,6 @@
         "url-loader": "^1.0.1",
         "webpack": "^4.2.0",
         "webpack-merge": "^4.1.2",
-        "webpack-serve": "^0.2.0",
-        "extract-text-webpack-plugin": "^4.0.0-beta.0"
+        "webpack-serve": "^0.2.0"
     }
 }
