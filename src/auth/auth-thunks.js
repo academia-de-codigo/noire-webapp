@@ -24,7 +24,9 @@ internals.clearSession = dispatch => {
 
 internals.scheduleRenewal = (dispatch, token) => {
     delete internals.intervalID;
-    const delay = jwtDecode(token).exp * 1000 - Date.now() - 10000;
+
+    // request new token when half of the time has expired
+    const delay = jwtDecode(token).exp * (1000 / 2);
 
     if (delay > 0) {
         internals.intervalID = setInterval(async () => {
