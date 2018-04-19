@@ -12,8 +12,10 @@ function RouterNavLink(props) {
 function Nav({ links, children }) {
     return (
         <Menu inverted fixed="top">
-            {links.map(link => (
-                <Menu.Item key={link.id} as={RouterNavLink} to={link.path}>
+            {links.slice().map((link, index) => (
+                // cloning links for safe usage of array index as key
+                /* eslint-disable react/no-array-index-key */
+                <Menu.Item key={index} as={RouterNavLink} to={link.path}>
                     {link.text}
                 </Menu.Item>
             ))}
@@ -24,7 +26,6 @@ function Nav({ links, children }) {
 
 const linksPropTypes = PropTypes.arrayOf(
     PropTypes.shape({
-        id: PropTypes.number.isRequired,
         path: PropTypes.string.isRequired,
         text: PropTypes.string.isRequired,
         button: PropTypes.bool
