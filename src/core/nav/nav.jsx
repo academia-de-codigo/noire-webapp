@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Menu, Button } from 'semantic-ui-react';
 import * as actions from 'auth/auth-thunks';
 
-function RouterNavLink(props) {
-    return <NavLink exact {...props} activeClassName="active" />;
+// Button is rendered as RouterNavLink and uses ref,
+// which can not be used with stateless functions
+/* eslint-disable react/prefer-stateless-function */
+class RouterNavLink extends Component {
+    render() {
+        return <NavLink exact {...this.props} activeClassName="active" />;
+    }
 }
 
 function Nav({ links, children }) {
@@ -60,11 +65,34 @@ function NavContainer({ isAuthenticated, links, logout }) {
     return (
         <Nav links={links}>
             {isAuthenticated ? (
-                <Button onClick={logout}>Logout</Button>
+                <Menu inverted>
+                    <Menu.Item>
+                        <Button onClick={logout}>Logout</Button>
+                    </Menu.Item>
+                </Menu>
             ) : (
-                <Menu.Item as={RouterNavLink} to="/login">
-                    <Button primary>Login</Button>
-                </Menu.Item>
+                <Menu inverted>
+                    <Menu.Item>
+                        <Button
+                            as={RouterNavLink}
+                            to="/signup"
+                            secondary
+                            inverted
+                        >
+                            Sign Up
+                        </Button>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Button
+                            as={RouterNavLink}
+                            to="/login"
+                            secondary
+                            inverted
+                        >
+                            Login
+                        </Button>
+                    </Menu.Item>
+                </Menu>
             )}
         </Nav>
     );

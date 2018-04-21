@@ -1,0 +1,13 @@
+body {
+    background-color: #ecf0f1;
+}
+
+.container {
+    height: 100%;
+}
+
+.login {
+    font-size: 1.2em;
+    padding-top: 20px;
+    text-align: center;
+}

@@ -1,39 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Validator from 'Validator';
-import { Message, Segment, Header, Form, Button } from 'semantic-ui-react';
 import InputField from 'core/forms/input-field';
-import CheckBoxField from 'core/forms/checkbox-field';
+import { Link } from 'react-router-dom';
+import { Segment, Header, Form, Button, Message } from 'semantic-ui-react';
 
-function Login(props) {
+function SignUp(props) {
     return (
         <Segment raised>
             <Header textAlign="center" size="large">
                 {props.children}
             </Header>
-            <LoginForm onSubmit={props.onSubmit} />
+            <SignUpForm onSubmit={props.onSubmit} />
         </Segment>
     );
 }
 
-Login.propTypes = {
+SignUp.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     children: PropTypes.node
 };
 
-Login.defaultProps = {
-    children: 'Login Form'
+SignUp.defaultProps = {
+    children: 'Signup Form'
 };
 
-export class LoginForm extends Component {
+export class SignUpForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired
     };
 
     static validate(data) {
         const rules = {
-            username: 'required|min:3',
-            password: 'required|min:3'
+            email: 'required|email'
         };
 
         const validator = Validator.make(data, rules);
@@ -54,23 +53,7 @@ export class LoginForm extends Component {
     state = {
         data: {},
         loading: false,
-        globalError: null,
-        passwordVisible: false
-    };
-
-    onChange = event => {
-        this.setState({
-            data: {
-                ...this.state.data,
-                [event.currentTarget.name]: event.currentTarget.value
-            }
-        });
-    };
-
-    onShowPassword = () => {
-        this.setState({
-            passwordVisible: !this.state.passwordVisible
-        });
+        globalError: null
     };
 
     onSubmit = async () => {
@@ -91,56 +74,42 @@ export class LoginForm extends Component {
 
     canSubmit() {
         const { data } = this.state;
-        const errors = LoginForm.validate(data);
+        const errors = SignUpForm.validate(data);
 
-        return (
-            Object.keys(errors).length === 0 && data.username && data.password
-        );
+        return Object.keys(errors).length === 0 && data.email;
     }
 
     render() {
-        const { data, passwordVisible, loading, globalError } = this.state;
-        const errors = LoginForm.validate(data);
+        const { data, loading, globalError } = this.state;
+        const errors = SignUpForm.validate(data);
 
         return (
             <Form size="large" onSubmit={this.onSubmit} loading={loading}>
                 <InputField
-                    name="username"
-                    icon="user"
-                    placeholder="username"
-                    value={data.username}
+                    name="email"
+                    icon="envelope"
+                    placeholder="email"
+                    value={data.email}
                     onChange={this.onChange}
-                    error={errors.username}
-                />
-
-                <InputField
-                    name="password"
-                    icon="lock"
-                    placeholder="password"
-                    password={!passwordVisible}
-                    value={data.password}
-                    onChange={this.onChange}
-                    error={errors.password}
-                />
-
-                <CheckBoxField
-                    text="Show Password"
-                    onChange={this.onShowPassword}
+                    error={errors.email}
                 />
 
                 <Button disabled={!this.canSubmit()} primary fluid size="large">
-                    Login
+                    Sign Up
                 </Button>
 
                 {globalError && (
                     <Message negative>
-                        <Message.Header>Login Failure</Message.Header>
+                        <Message.Header>Sign Up Failure</Message.Header>
                         <p>{globalError}</p>
                     </Message>
                 )}
+                <div className="login">
+                    <Link to="/login">Login</Link>
+                </div>
             </Form>
         );
     }
 }
 
-export default Login;
+export default SignUp;
