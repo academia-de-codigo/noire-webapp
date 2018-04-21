@@ -1,24 +1,35 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const merge = require('webpack-merge');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const history = require('connect-history-api-fallback');
-const convert = require('koa-connect');
+
+const babelLoader = require.resolve('babel-loader');
 const common = require('./webpack.common.js');
+
+const ASSETS_DIR = 'public';
 
 const plugins = {
     html: new HtmlWebpackPlugin({
         template: 'public/index.html',
         favicon: 'public/favicon.ico'
-    })
+    }),
+    named: new webpack.NamedModulesPlugin(),
+    hmr: new webpack.HotModuleReplacementPlugin()
 };
 
 module.exports = merge(common, {
     mode: 'development',
     devtool: 'cheap-module-source-map',
-    serve: {
+    devServer: {
         port: 8000,
-        // use apiHistoryFallback when serving from webpack
-        add: app => app.use(convert(history()))
+        contentBase: ASSETS_DIR,
+        historyApiFallback: true, // avoid 404 on app reload
+        hot: true,
+        inline: true,
+        overlay: {
+            warnings: false,
+            errors: true
+        }
     },
     module: {
         rules: [
@@ -29,5 +40,5 @@ module.exports = merge(common, {
             }
         ]
     },
-    plugins: [plugins.html]
+    plugins: [plugins.html, plugins.named, plugins.hmr]
 });

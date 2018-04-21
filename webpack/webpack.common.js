@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const Path = require('path');
+const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const BUILD_DIR = 'build';
@@ -13,9 +13,9 @@ const plugins = {
 
 module.exports = {
     // babel-polyfill required for ES2017 async-await to generator conversion
-    entry: ['babel-polyfill', Path.join(process.cwd(), SRC_DIR, 'index.jsx')],
+    entry: ['babel-polyfill', path.join(process.cwd(), SRC_DIR, 'index.jsx')],
     output: {
-        path: Path.join(process.cwd(), BUILD_DIR),
+        path: path.join(process.cwd(), BUILD_DIR),
         filename: 'bundle.js',
         publicPath: '/'
     },

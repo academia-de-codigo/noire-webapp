@@ -1,4 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
+import { hot } from 'react-hot-loader';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import HomePage from 'pages/home/home-page';
 import LoginPage from 'pages/login/login-page';
@@ -18,4 +20,4 @@ function App() {
     );
 }
 
-export default App;
+export default (module.hot ? hot(module)(App) : App);
