@@ -1,4 +1,4 @@
-import * as types from './auth-types';
+import * as types from 'auth/auth-types';
 
 export function login(token) {
     return {

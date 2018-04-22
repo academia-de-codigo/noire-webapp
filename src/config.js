@@ -1,14 +1,14 @@
 const dev = {
     api: {
         baseURL: 'https://localhost:8081/api',
-        timeout: 2000
+        timeout: 5000
     }
 };
 
 const prod = {
     api: {
         baseURL: 'https://localhost:8081/api',
-        timeout: 5000
+        timeout: 10000
     }
 };
 

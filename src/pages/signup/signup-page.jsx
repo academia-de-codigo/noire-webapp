@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
-import SignUp from './signup';
-import './signup-page.css';
+import { signup } from 'auth/auth-thunks';
+import SignUp from 'pages/signup/signup';
+import 'pages/signup/signup-page.css';
 
 class SignUpPage extends Component {
     static propTypes = {
@@ -28,4 +30,4 @@ class SignUpPage extends Component {
     }
 }
 
-export default SignUpPage;
+export default connect(null, { signup })(SignUpPage);

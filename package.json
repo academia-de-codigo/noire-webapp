@@ -4,34 +4,25 @@
     "description": "React Frontend for the Noire server",
     "main": "src/index.js",
     "scripts": {
-        "start": "webpack-dev-server --color --progress --config webpack/webpack.dev.js",
+        "start": "webpack-dev-server --color --config webpack/webpack.dev.js",
         "test": "NODE_ENV=test jest",
         "coverage": "NODE_ENV=test jest --coverage",
         "lint": "eslint src",
-        "build": "webpack --progress --config webpack/webpack.prod.js",
+        "build": "webpack --color --progress --config webpack/webpack.prod.js",
         "serve": "npm run build; http-server build"
     },
     "jest": {
         "verbose": true,
-        "roots": [
-            "src",
-            "test"
-        ],
+        "roots": ["src", "test"],
         "setupTestFrameworkScriptFile": "./test/setup.js",
         "collectCoverage": false,
-        "collectCoverageFrom": [
-            "**/*.{js,jsx}",
-            "!**/node_modules/**"
-        ]
+        "collectCoverageFrom": ["**/*.{js,jsx}", "!**/node_modules/**"]
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/academia-de-codigo/noire-webapp.git"
     },
-    "keywords": [
-        "noire",
-        "react"
-    ],
+    "keywords": ["noire", "react"],
     "author": "<Academia de Código_>",
     "license": "MIT",
     "bugs": {

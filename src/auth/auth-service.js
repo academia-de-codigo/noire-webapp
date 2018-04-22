@@ -15,7 +15,7 @@ export async function login(username, password) {
     return token;
 }
 
-export async function logout() {
+export function logout() {
     return api.get('logout');
 }
 
@@ -29,4 +29,10 @@ export async function renew() {
     }
 
     return token;
+}
+
+export function signup(email) {
+    return api.post('signup', {
+        email
+    });
 }

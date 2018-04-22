@@ -2,8 +2,6 @@
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-const babelLoader = require.resolve('babel-loader');
 const common = require('./webpack.common.js');
 
 const ASSETS_DIR = 'public';

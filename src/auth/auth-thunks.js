@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import { setAuthorizationHeader } from 'api';
-import * as api from './auth-service';
-import * as action from './auth-actions';
+import * as authService from 'auth/auth-service';
+import * as action from 'auth/auth-actions';
 
 const internals = {};
 
@@ -31,7 +31,7 @@ internals.scheduleRenewal = (dispatch, token) => {
     if (delay > 0) {
         internals.intervalID = setInterval(async () => {
             try {
-                const renewedToken = await api.renew();
+                const renewedToken = await authService.renew();
                 internals.setSession(dispatch, renewedToken);
             } catch (error) {
                 dispatch(action.logout());
@@ -42,7 +42,7 @@ internals.scheduleRenewal = (dispatch, token) => {
 
 export function login({ username, password }) {
     return async dispatch => {
-        const token = await api.login(username, password);
+        const token = await authService.login(username, password);
         internals.setSession(dispatch, token);
         internals.scheduleRenewal(dispatch, token);
     };
@@ -50,7 +50,11 @@ export function login({ username, password }) {
 
 export function logout() {
     return dispatch => {
-        api.logout();
+        authService.logout();
         internals.clearSession(dispatch);
     };
+}
+
+export function signup({ email }) {
+    return () => authService.signup(email);
 }

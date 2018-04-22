@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Validator from 'Validator';
 import { Message, Segment, Header, Form, Button } from 'semantic-ui-react';
 import InputField from 'core/forms/input-field';
@@ -138,6 +139,9 @@ export class LoginForm extends Component {
                         <p>{globalError}</p>
                     </Message>
                 )}
+                <div className="login">
+                    <Link to="/password-reset">Forgot your Password?</Link>
+                </div>
             </Form>
         );
     }

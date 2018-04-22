@@ -56,6 +56,15 @@ export class SignUpForm extends Component {
         globalError: null
     };
 
+    onChange = event => {
+        this.setState({
+            data: {
+                ...this.state.data,
+                [event.currentTarget.name]: event.currentTarget.value
+            }
+        });
+    };
+
     onSubmit = async () => {
         if (!this.canSubmit()) {
             return;

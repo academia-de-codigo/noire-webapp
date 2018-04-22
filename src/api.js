@@ -8,7 +8,14 @@ const axios = Axios.create({
 
 async function wrapError(asyncFunc, ...args) {
     try {
-        return await asyncFunc(...args);
+        const response = await asyncFunc(...args);
+
+        // check for server success indication
+        if (!response.data.success) {
+            throw Error(response.data);
+        }
+
+        return response;
     } catch (error) {
         if (error.response && error.response.data.message) {
             // server responded with status code different from 2xx
@@ -19,11 +26,11 @@ async function wrapError(asyncFunc, ...args) {
     }
 }
 
-export async function post(path, data) {
+export function post(path, data) {
     return wrapError(axios.post, path, data);
 }
 
-export async function get(path, data) {
+export function get(path, data) {
     return wrapError(axios.get, path, data);
 }
 

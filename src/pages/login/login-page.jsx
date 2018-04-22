@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import { login } from 'auth/auth-thunks';
-import Login from './login';
-import './login-page.css';
+import Login from 'pages/login/login';
+import 'pages/login/login-page.css';
 
 class LoginPage extends Component {
     static propTypes = {
