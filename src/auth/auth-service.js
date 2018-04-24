@@ -36,3 +36,12 @@ export function signup(email) {
         email
     });
 }
+
+export function register(token, { name, username, email, password }) {
+    return api.post(`register?token=${token}`, {
+        name,
+        username,
+        email,
+        password
+    });
+}

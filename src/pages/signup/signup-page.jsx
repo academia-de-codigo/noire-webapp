@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
-import { signup } from 'auth/auth-thunks';
+import * as authService from 'auth/auth-service';
 import SignUp from 'pages/signup/signup';
 import 'pages/signup/signup-page.css';
 
 class SignUpPage extends Component {
     static propTypes = {
-        signup: PropTypes.func.isRequired,
         history: PropTypes.shape({
             push: PropTypes.func.isRequired
         }).isRequired
     };
 
     submit = async data => {
-        await this.props.signup(data);
+        await authService.signup(data);
         this.props.history.push('/');
     };
 
@@ -30,4 +28,4 @@ class SignUpPage extends Component {
     }
 }
 
-export default connect(null, { signup })(SignUpPage);
+export default SignUpPage;

@@ -54,7 +54,3 @@ export function logout() {
         internals.clearSession(dispatch);
     };
 }
-
-export function signup({ email }) {
-    return () => authService.signup(email);
-}

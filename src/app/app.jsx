@@ -7,6 +7,7 @@ import LoginPage from 'pages/login/login-page';
 import AdminPage from 'pages/admin/admin-page';
 import PrivateRoute from 'core/nav/private-route';
 import SignUpPage from 'pages/signup/signup-page';
+import RegisterPage from 'pages/register/register-page';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
             <Route exact path="/" component={HomePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={SignUpPage} />
+            <Route path="/register" component={RegisterPage} />
             <PrivateRoute path="/admin" component={AdminPage} />
             <Redirect to="/" />
         </Switch>

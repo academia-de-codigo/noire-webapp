@@ -26,7 +26,7 @@ module.exports = merge(common, {
         inline: true,
         overlay: {
             warnings: false,
-            errors: true
+            errors: false
         }
     },
     module: {
