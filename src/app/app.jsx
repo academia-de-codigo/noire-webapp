@@ -8,6 +8,8 @@ import AdminPage from 'pages/admin/admin-page';
 import PrivateRoute from 'core/nav/private-route';
 import SignUpPage from 'pages/signup/signup-page';
 import RegisterPage from 'pages/register/register-page';
+import PasswordResetPage from 'pages/password-reset/password-reset-page';
+import PasswordUpdatePage from 'pages/password-update/password-update-page';
 
 function App() {
     return (
@@ -16,6 +18,8 @@ function App() {
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={SignUpPage} />
             <Route path="/register" component={RegisterPage} />
+            <Route path="/password-reset" component={PasswordResetPage} />
+            <Route path="/password-update" component={PasswordUpdatePage} />
             <PrivateRoute path="/admin" component={AdminPage} />
             <Redirect to="/" />
         </Switch>

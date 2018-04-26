@@ -148,7 +148,7 @@ export class RegisterForm extends Component {
 
                 {globalError && (
                     <Message negative>
-                        <Message.Header>Login Failure</Message.Header>
+                        <Message.Header>Registration Failure</Message.Header>
                         <p>{globalError}</p>
                     </Message>
                 )}

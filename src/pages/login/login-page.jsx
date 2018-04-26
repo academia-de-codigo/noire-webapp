@@ -8,22 +8,20 @@ import 'pages/login/login-page.css';
 
 class LoginPage extends Component {
     static propTypes = {
-        login: PropTypes.func.isRequired,
-        history: PropTypes.shape({
-            push: PropTypes.func.isRequired
-        }).isRequired
+        login: PropTypes.func.isRequired
     };
 
     submit = async data => {
         await this.props.login(data);
-        this.props.history.push('/admin');
     };
 
     render() {
         return (
             <Grid container centered verticalAlign="middle">
                 <Grid.Column computer={6} tablet={8} mobile={12}>
-                    <Login onSubmit={this.submit}>Login Page</Login>
+                    <Login onSubmit={this.submit} redirect="/">
+                        Login Page
+                    </Login>
                 </Grid.Column>
             </Grid>
         );

@@ -45,3 +45,16 @@ export function register(token, { name, username, email, password }) {
         password
     });
 }
+
+export function passwordReset(email) {
+    return api.post('password-reset', {
+        email
+    });
+}
+
+export function passwordUpdate(token, { email, password }) {
+    return api.post(`password-update?token=${token}`, {
+        email,
+        password
+    });
+}

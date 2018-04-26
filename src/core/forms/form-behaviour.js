@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import Validator from 'Validator';
 
 /**
@@ -7,9 +8,17 @@ import Validator from 'Validator';
  */
 class FormBehaviour extends Component {
     static propTypes = {
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired
+        }).isRequired,
         rules: PropTypes.objectOf(PropTypes.string).isRequired, // form validation rules
         onSubmit: PropTypes.func.isRequired, // form submit handler
-        render: PropTypes.func.isRequired // form render method
+        render: PropTypes.func.isRequired, // form render method
+        redirect: PropTypes.string // redirect to another page on form submission
+    };
+
+    static defaultProps = {
+        redirect: null
     };
 
     state = {
@@ -54,7 +63,12 @@ class FormBehaviour extends Component {
         try {
             this.setState({ loading: true, globalError: null });
             await this.props.onSubmit(this.state.data);
-            this.setState({ loading: false, disabled: true });
+
+            if (this.props.redirect) {
+                this.props.history.push(this.props.redirect);
+            } else {
+                this.setState({ loading: false, disabled: true });
+            }
         } catch (error) {
             this.setState({
                 globalError: error.message,
@@ -98,4 +112,4 @@ class FormBehaviour extends Component {
     }
 }
 
-export default FormBehaviour;
+export default withRouter(FormBehaviour);

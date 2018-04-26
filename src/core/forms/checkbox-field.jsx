@@ -8,6 +8,7 @@ function CheckBoxField(props) {
             <Checkbox
                 toggle
                 label={!!props.text && props.text}
+                disabled={props.disabled}
                 onChange={props.onChange}
             />
         </Form.Field>
@@ -15,12 +16,14 @@ function CheckBoxField(props) {
 }
 
 CheckBoxField.propTypes = {
+    onChange: PropTypes.func.isRequired,
     text: PropTypes.string,
-    onChange: PropTypes.func.isRequired
+    disabled: PropTypes.bool
 };
 
 CheckBoxField.defaultProps = {
-    text: null
+    text: null,
+    disabled: false
 };
 
 export default CheckBoxField;
