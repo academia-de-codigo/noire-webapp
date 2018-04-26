@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import Validator from 'Validator';
 
 /**
@@ -8,23 +7,21 @@ import Validator from 'Validator';
  */
 class FormBehaviour extends Component {
     static propTypes = {
-        history: PropTypes.shape({
-            push: PropTypes.func.isRequired
-        }).isRequired,
         rules: PropTypes.objectOf(PropTypes.string).isRequired, // form validation rules
         onSubmit: PropTypes.func.isRequired, // form submit handler
-        render: PropTypes.func.isRequired, // form render method
-        redirect: PropTypes.string // redirect to another page on form submission
+        onSuccess: PropTypes.func, // form submit handler
+        render: PropTypes.func.isRequired // form render method
     };
 
     static defaultProps = {
-        redirect: null
+        onSuccess: null
     };
 
     state = {
         loading: false,
         disabled: false,
         canSubmit: false,
+        finished: false,
         data: {}, // form fields data
         globalError: null, // error returned by the server
         errors: {} // form validation errors
@@ -34,6 +31,12 @@ class FormBehaviour extends Component {
         this.required = Object.keys(this.props.rules).filter(rule =>
             this.props.rules[rule].includes('required')
         );
+    }
+
+    componentDidUpdate() {
+        if (this.state.finished && this.props.onSuccess) {
+            this.props.onSuccess();
+        }
     }
 
     onChange = event => {
@@ -63,12 +66,7 @@ class FormBehaviour extends Component {
         try {
             this.setState({ loading: true, globalError: null });
             await this.props.onSubmit(this.state.data);
-
-            if (this.props.redirect) {
-                this.props.history.push(this.props.redirect);
-            } else {
-                this.setState({ loading: false, disabled: true });
-            }
+            this.setState({ loading: false, disabled: true, finished: true });
         } catch (error) {
             this.setState({
                 globalError: error.message,
@@ -112,4 +110,4 @@ class FormBehaviour extends Component {
     }
 }
 
-export default withRouter(FormBehaviour);
+export default FormBehaviour;

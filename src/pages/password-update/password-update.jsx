@@ -17,7 +17,7 @@ function PasswordUpdate(props) {
                 {props.children}
             </Header>
             <FormBehaviour
-                onSubmit={props.onSubmit}
+                {...props}
                 rules={rules}
                 render={(formProps, handlers) => (
                     <PasswordUpdateForm {...formProps} {...handlers} />

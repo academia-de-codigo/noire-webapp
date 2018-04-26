@@ -13,8 +13,9 @@ class PasswordResetPage extends Component {
         }).isRequired
     };
 
-    submit = async ({ email }) => {
-        await authService.passwordReset(email);
+    submit = ({ email }) => authService.passwordReset(email);
+
+    success = () => {
         toast(
             {
                 title: 'Password Reset',
@@ -32,6 +33,7 @@ class PasswordResetPage extends Component {
                 <Grid.Column computer={6} tablet={8} mobile={12}>
                     <PasswordReset
                         onSubmit={this.submit}
+                        onSuccess={this.success}
                         header="Password Reset"
                     >
                         Enter your email address and we will send you a link to

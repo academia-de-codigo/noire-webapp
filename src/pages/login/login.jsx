@@ -17,8 +17,7 @@ function Login(props) {
                 {props.children}
             </Header>
             <FormBehaviour
-                onSubmit={props.onSubmit}
-                redirect={props.redirect}
+                {...props}
                 rules={rules}
                 render={(formProps, handlers) => (
                     <LoginForm {...formProps} {...handlers} />

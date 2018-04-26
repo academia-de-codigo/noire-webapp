@@ -16,7 +16,7 @@ function PasswordReset(props) {
             </Header>
             <p>{props.children}</p>
             <FormBehaviour
-                onSubmit={props.onSubmit}
+                {...props}
                 rules={rules}
                 render={(formProps, handlers) => (
                     <PasswordResetForm {...formProps} {...handlers} />

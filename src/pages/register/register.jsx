@@ -19,7 +19,7 @@ function Register(props) {
                 {props.children}
             </Header>
             <FormBehaviour
-                onSubmit={props.onSubmit}
+                {...props}
                 rules={rules}
                 render={(formProps, handlers) => (
                     <RegisterForm {...formProps} {...handlers} />
@@ -45,6 +45,7 @@ export class RegisterForm extends Component {
         data: PropTypes.objectOf(PropTypes.string).isRequired,
         errors: PropTypes.objectOf(PropTypes.string).isRequired,
         loading: PropTypes.bool.isRequired,
+        disabled: PropTypes.bool.isRequired,
         canSubmit: PropTypes.bool.isRequired,
         globalError: PropTypes.string
     };
@@ -62,8 +63,6 @@ export class RegisterForm extends Component {
         this.setState({
             passwordVisible: !this.state.passwordVisible
         });
-
-        this.props.onChange();
     };
 
     onChange = async event => {
@@ -83,7 +82,7 @@ export class RegisterForm extends Component {
     };
 
     render() {
-        const { data, loading, canSubmit } = this.props;
+        const { data, loading, disabled, canSubmit } = this.props;
         const { errors, globalError } = this.props;
         const { onChange, onSubmit } = this.props;
         const { passwordVisible } = this.state;
@@ -95,6 +94,7 @@ export class RegisterForm extends Component {
                     icon="address card"
                     placeholder="full name"
                     value={data.name}
+                    disabled={disabled}
                     onChange={onChange}
                     error={errors.name}
                 />
@@ -104,6 +104,7 @@ export class RegisterForm extends Component {
                     icon="envelope"
                     placeholder="email"
                     value={data.email}
+                    disabled={disabled}
                     onChange={onChange}
                     error={errors.email}
                 />
@@ -113,6 +114,7 @@ export class RegisterForm extends Component {
                     icon="user"
                     placeholder="username"
                     value={data.username}
+                    disabled={disabled}
                     onChange={onChange}
                     error={errors.username}
                 />
@@ -123,6 +125,7 @@ export class RegisterForm extends Component {
                     placeholder="password"
                     password={!passwordVisible}
                     value={data.password}
+                    disabled={disabled}
                     onChange={this.onChange}
                     error={errors.password}
                 />
@@ -133,17 +136,24 @@ export class RegisterForm extends Component {
                     placeholder="password"
                     password={!passwordVisible}
                     value={data['password-confirm']}
+                    disabled={disabled}
                     onChange={this.onChange}
                     error={this.state.errors['password-confirm']}
                 />
 
                 <CheckBoxField
                     text="Show Password"
+                    disabled={disabled}
                     onChange={this.onShowPassword}
                 />
 
-                <Button disabled={!canSubmit} primary fluid size="large">
-                    Login
+                <Button
+                    disabled={!canSubmit || disabled}
+                    primary
+                    fluid
+                    size="large"
+                >
+                    Register
                 </Button>
 
                 {globalError && (

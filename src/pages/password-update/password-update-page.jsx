@@ -27,8 +27,9 @@ class PasswordUpdatePage extends Component {
         }
     }
 
-    submit = async data => {
-        await authService.passwordUpdate(this.token, data);
+    submit = data => authService.passwordUpdate(this.token, data);
+
+    success = () => {
         toast(
             {
                 title: 'Password update successful',
@@ -43,7 +44,10 @@ class PasswordUpdatePage extends Component {
             <Grid container centered verticalAlign="middle">
                 <SemanticToastContainer />
                 <Grid.Column computer={6} tablet={8} mobile={12}>
-                    <PasswordUpdate onSubmit={this.submit}>
+                    <PasswordUpdate
+                        onSubmit={this.submit}
+                        onSuccess={this.success}
+                    >
                         Password Update
                     </PasswordUpdate>
                 </Grid.Column>

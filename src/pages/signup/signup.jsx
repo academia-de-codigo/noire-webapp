@@ -16,7 +16,7 @@ function SignUp(props) {
             </Header>
 
             <FormBehaviour
-                onSubmit={props.onSubmit}
+                {...props}
                 rules={rules}
                 render={(formProps, handlers) => (
                     <SignUpForm {...formProps} {...handlers} />

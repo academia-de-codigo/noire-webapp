@@ -13,8 +13,9 @@ class SignUpPage extends Component {
         }).isRequired
     };
 
-    submit = async ({ email }) => {
-        await authService.signup(email);
+    submit = ({ email }) => authService.signup(email);
+
+    success = () => {
         toast(
             {
                 title: 'User Sign Up successful',
@@ -30,7 +31,9 @@ class SignUpPage extends Component {
             <Grid container centered verticalAlign="middle">
                 <SemanticToastContainer />
                 <Grid.Column computer={6} tablet={8} mobile={12}>
-                    <SignUp onSubmit={this.submit}>Sign Up Form</SignUp>
+                    <SignUp onSubmit={this.submit} onSuccess={this.success}>
+                        Sign Up Form
+                    </SignUp>
                 </Grid.Column>
             </Grid>
         );

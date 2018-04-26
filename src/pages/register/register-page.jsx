@@ -27,8 +27,9 @@ class RegisterPage extends Component {
         }
     }
 
-    submit = async data => {
-        await authService.register(this.token, data);
+    submit = data => authService.register(this.token, data);
+
+    success = () => {
         toast(
             {
                 title: 'User registration successful',
@@ -43,7 +44,7 @@ class RegisterPage extends Component {
             <Grid container centered verticalAlign="middle">
                 <SemanticToastContainer />
                 <Grid.Column computer={6} tablet={8} mobile={12}>
-                    <Register onSubmit={this.submit}>
+                    <Register onSubmit={this.submit} onSuccess={this.success}>
                         Registration Form
                     </Register>
                 </Grid.Column>
