@@ -14,6 +14,7 @@ function InputField(props) {
                 type={props.password ? 'password' : 'text'}
                 value={props.value}
                 onChange={props.onChange}
+                disabled={props.disabled}
             />
             {!!props.error && <InlineError text={props.error} />}
         </Form.Field>
@@ -27,7 +28,8 @@ InputField.propTypes = {
     placeholder: PropTypes.string,
     icon: PropTypes.string,
     error: PropTypes.string,
-    password: PropTypes.bool
+    password: PropTypes.bool,
+    disabled: PropTypes.bool
 };
 
 InputField.defaultProps = {
@@ -35,7 +37,8 @@ InputField.defaultProps = {
     value: '',
     icon: null,
     error: null,
-    password: false
+    password: false,
+    disabled: false
 };
 
 export default InputField;

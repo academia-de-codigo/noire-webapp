@@ -14,6 +14,7 @@ class FormBehaviour extends Component {
 
     state = {
         loading: false,
+        disabled: false,
         canSubmit: false,
         data: {}, // form fields data
         globalError: null, // error returned by the server
@@ -51,8 +52,9 @@ class FormBehaviour extends Component {
         }
 
         try {
-            this.setState({ loading: true });
+            this.setState({ loading: true, globalError: null });
             await this.props.onSubmit(this.state.data);
+            this.setState({ loading: false, disabled: true });
         } catch (error) {
             this.setState({
                 globalError: error.message,

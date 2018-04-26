@@ -36,7 +36,7 @@ SignUp.defaultProps = {
 };
 
 function SignUpForm(props) {
-    const { data, loading, canSubmit } = props;
+    const { data, loading, disabled, canSubmit } = props;
     const { errors, globalError } = props;
     const { onChange, onSubmit } = props;
 
@@ -47,11 +47,17 @@ function SignUpForm(props) {
                 icon="envelope"
                 placeholder="email"
                 value={data.email}
+                disabled={disabled}
                 onChange={onChange}
                 error={errors.email}
             />
 
-            <Button disabled={!canSubmit} primary fluid size="large">
+            <Button
+                disabled={!canSubmit || disabled}
+                primary
+                fluid
+                size="large"
+            >
                 Sign Up
             </Button>
 
@@ -74,6 +80,7 @@ SignUpForm.propTypes = {
     data: PropTypes.objectOf(PropTypes.string).isRequired,
     errors: PropTypes.objectOf(PropTypes.string).isRequired,
     loading: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool.isRequired,
     canSubmit: PropTypes.bool.isRequired,
     globalError: PropTypes.string
 };
