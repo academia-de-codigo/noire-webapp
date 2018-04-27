@@ -20,7 +20,8 @@ class SignUpPage extends Component {
             {
                 title: 'User Sign Up successful',
                 description:
-                    'A registration email has been sent, please check your inbox'
+                    'A registration email has been sent, please check your inbox',
+                time: 5000
             },
             () => this.props.history.push('/')
         );

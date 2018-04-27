@@ -33,7 +33,8 @@ class RegisterPage extends Component {
         toast(
             {
                 title: 'User registration successful',
-                description: 'You can now login with your credentials'
+                description: 'You can now login with your credentials',
+                time: 5000
             },
             () => this.props.history.push('/')
         );
