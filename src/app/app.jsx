@@ -11,6 +11,9 @@ import RegisterPage from 'pages/register/register-page';
 import PasswordResetPage from 'pages/password-reset/password-reset-page';
 import PasswordUpdatePage from 'pages/password-update/password-update-page';
 
+import 'app/app.css';
+import 'semantic-ui-css/semantic.min.css';
+
 function App() {
     return (
         <Switch>
