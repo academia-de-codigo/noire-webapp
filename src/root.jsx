@@ -5,11 +5,11 @@ import * as store from 'store';
 import App from 'app';
 
 const root = () => (
-    <Router>
-        <Provider store={store.init()}>
+    <Provider store={store.init()}>
+        <Router>
             <App />
-        </Provider>
-    </Router>
+        </Router>
+    </Provider>
 );
 
 export default root;
