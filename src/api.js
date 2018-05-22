@@ -10,8 +10,8 @@ async function wrapError(asyncFunc, ...args) {
     try {
         const response = await asyncFunc(...args);
 
-        // check for server success indication
-        if (!response.data.success) {
+        // check for server success indication or collection of results
+        if (!response.data.success && !Array.isArray(response.data)) {
             throw Error(response.data);
         }
 
